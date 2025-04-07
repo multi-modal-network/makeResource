@@ -29,6 +29,13 @@ def buildResourceDir(inputDir,outputDir):
         outputSubDir = os.path.join(outputDir, p4Name[i])
         os.makedirs(outputSubDir, exist_ok=True)
         output = os.path.join(outputSubDir, f'{p4Name[i]}.bin')
+        ##复制subDirs中的p4Name[i].pb.txt到outputSubDir
+        p4pbtxt = os.path.join(subDirs[i], f'{p4Name[i]}.pb.txt')
+        if os.path.exists(p4pbtxt):
+            with open(p4pbtxt, 'r') as f:
+                p4txtContent = f.read()
+            with open(os.path.join(outputSubDir, f'{p4Name[i]}.pb.txt'), 'w') as f:
+                f.write(p4txtContent)
         ##print(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
         res.buildResource(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
 

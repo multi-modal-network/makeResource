@@ -20,6 +20,7 @@ python buildResourceSingle.py --ctx-json context.json --tofino-bin tofino.bin  -
 input文件夹结构
 root
 |--[p4name]
+   |--[p4name].pb.txt
    |--[p4name].tofino
       |--bfrt.json
       |--pipe
