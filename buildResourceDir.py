@@ -9,13 +9,14 @@ def getArgsParser():
     parser.add_argument('--output','-o',help='path to the output Dir', required=False,action='store')
     return parser
 
-def getSubDirs(inputDir):
+def getSubDirs(inputDir,prefix='tofino'):
     subDirs = []
     p4Name = []
     for root, dirs, files in os.walk(inputDir):
         for dir in dirs:
-            subDirs.append(os.path.join(root, dir))
-            p4Name.append(dir)
+            if dir.startswith(prefix):
+                subDirs.append(os.path.join(root, dir))
+                p4Name.append(dir)
     return subDirs,p4Name
 
 def buildResourceDir(inputDir,outputDir):
@@ -48,8 +49,8 @@ def buildResourceDir(inputDir):
         tofinoBin = os.path.join(pipePath, 'tofino.bin')
         bfrtJson = os.path.join(tofinoPath, 'bfrt.json')
         output = os.path.join(subDirs[i], f'{p4Name[i]}.bin')
-        ##print(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
-        res.buildResource(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
+        print(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
+        #res.buildResource(ctxJson, tofinoBin, bfrtJson, output, p4Name[i])
 
 
 def main():
